@@ -108,7 +108,6 @@ const y= canvas.height/2;
 
 let player= new Player(x,y,10,"white");
 player.draw();
-console.log(player);
 
 
 const projectile = new Projectile(x,y,5,"red",{x:1,y:1});
@@ -258,9 +257,17 @@ function isSmartPhone() {
   }
 
 window.addEventListener(isSmartPhone()?"touchstart":"click",(event)=>{
-    const angle=Math.atan2(event.clientY-y,event.clientX-x);
+    let angle;
+    if(isSmartPhone()){
+        angle=Math.atan2(event.changedTouches[0].pageY-y,event.changedTouches[0].pageX-x);
+
+
+    }else{
+        angle=Math.atan2(event.clientY-y,event.clientX-x);
+    }
     const velocity={x:Math.cos(angle)*6,y:Math.sin(angle)*6};
-    projectiles.push(new Projectile(x,y,5,"white",velocity))
+    projectiles.push(new Projectile(x,y,5,"white",velocity));
+    
     
 })
 
