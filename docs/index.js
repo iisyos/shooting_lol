@@ -249,8 +249,15 @@ startGamebtn.addEventListener("click",()=>{
     modalEl.style.display="none";
 
 })
+function isSmartPhone() {
+    if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-window.addEventListener("click",(event)=>{
+window.addEventListener(isSmartPhone()?"touchstart":"click",(event)=>{
     const angle=Math.atan2(event.clientY-y,event.clientX-x);
     const velocity={x:Math.cos(angle)*6,y:Math.sin(angle)*6};
     projectiles.push(new Projectile(x,y,5,"white",velocity))
